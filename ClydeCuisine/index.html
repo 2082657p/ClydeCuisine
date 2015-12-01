@@ -1,11 +1,64 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Clyde Cuisine</title>
-  <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-  </head>
-  <body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Clyde Cuisine</title>
+    	<link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    	<link rel="stylesheet" href="css/index.css" type="text/css">
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://www.d3plus.org/js/d3.js"></script>
+		<script src="http://www.d3plus.org/js/d3plus.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js" type="text/javascript"></script>
+		<script src="js/index.js"></script>
+		
+        <style>
+            .stop-top {
+                stop-color: #3f51b5;  /* Indigo */
+            }
+
+            .stop-bottom {
+                stop-color: #009688;  /* Teal */
+            }
+
+            .filled {
+                fill: url(#mainGradient);
+            }
+            .circle{
+            	opacity: 0;
+            }
+            .circle-under{
+            	fill: #99ccff;
+            }
+            .svg-container {
+    			display: inline-block;
+    			position: relative;
+    			width: 100%;
+    			padding-bottom: 100%; /* aspect ratio */
+   			 	vertical-align: bottom;
+    			overflow: hidden;
+			}
+			.svg-content-responsive {
+			    display: inline-block;
+    			position: absolute;
+    			top: 100px;
+    			left: 0;
+			}
+			.restaurant-name {
+			    text-align: center;
+			    font-size: 20px;
+			    font-family: "Arial";
+			}
+			.text-small{
+				text-align: center;
+			    font-size: 12px;
+			    color: white;
+			    font-family: "Arial";
+			}
+        </style>
+        
+        
+	</head>
+<body>
   	<nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -18,8 +71,7 @@
       </button>
       <a class="navbar-brand" href="#">Clyde Cuisine</a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
+ <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         
@@ -39,7 +91,6 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 
 
 
@@ -84,9 +135,6 @@
 
 
 
-
-
-
 <div style="text-align:center; margin-top:-21px;">
 <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
   View Map
@@ -98,11 +146,177 @@
 </div>
 </div>
 
-
 <button type="button" class="btn btn-default fixedbutton"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>  Refresh </button>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  </body>
-</html>
 
+
+
+</body>
+
+
+
+
+
+<script javascript>
+var csvData;
+
+d3.csv("/home/jack/Documents/IS(H)/ClydeCuisineMajor/Templates/data_new.csv", function(data) {
+	csvData = data;	
+});
+
+function printAll(csvData){
+	for(i = 0; i < csvData.length; i++){
+		console.log(csvData[i]);
+	}
+}
+
+function getRandom(csvData, num){
+	var outArray = [];
+	while (outArray.length < num){
+		var rand = Math.floor(Math.random() * csvData.length);
+		if(_.indexOf(outArray, csvData[rand]) == -1){
+			outArray[outArray.length] = csvData[rand];
+		}
+	}
+	for(i = 0; i < outArray.length; i++){
+		console.log(outArray[i].BusinessName);
+	}
+	return outArray;
+}
+
+function itemPos(item){
+	var out = item+(Math.floor(Math.random() * 10));
+	return out;
+}
+
+
+
+
+
+// Drawing with svg
+
+// Make an SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", "100%")
+                                    .attr("height", "100%")
+                                    .attr("fill", "#6699ff")
+                                    .classed("svg-content-responsive", true); 
+var bg = svgContainer.append("rect")
+                         .attr("x", 0)
+                         .attr("y", 0)
+                         .attr("width", "100%")
+                         .attr("height", "100%")
+                         .on('mouseover', function(d){
+                         	d3.selectAll(".circle-small").transition().duration(900).style("opacity", 0).remove();
+                         	d3.selectAll(".text-small").transition().duration(900).style("opacity", 0).remove();
+                         })
+                         .classed("filled", true);
+
+                               
+function addBubble(textAdd, centreX, centreY){
+svgContainer.append("circle")
+			.style("opacity", 0)
+			.transition().duration(900).style("opacity", 1)
+                         .attr("cx", centreX+"%")
+                         .attr("cy", centreY+"%")
+                         .attr("r", "12%")
+                         .attr("class", "circle-under")
+                         .attr("stroke", "#6699ff")
+                         .attr("stroke-width", 3);
+
+// Draw a Circle
+var text = svgContainer.append("foreignObject")
+					   .style("opacity", 0)
+			.transition().duration(900).style("opacity", 1)
+					   .attr("x", (centreX-9)+"%")
+					   .attr("y", (centreY-6)+"%")
+					   .attr("width", "18%")
+					   .attr("height", 100)
+					   .attr("class", "restaurant-name")
+                       .text(textAdd.BusinessName);
+var circle = svgContainer.append("circle")
+                         .attr("cx", centreX+"%")
+                         .attr("cy", centreY+"%")
+                         .attr("r", "12%")
+                         .attr("class", "circle")
+                         .attr("stroke", "#6699ff")
+                         .on('mouseover', function(d){
+                         	var resultsSmall = getRandom(csvData, 6);
+                         	addSmallCircle(centreX-11.5, centreY-18.5, resultsSmall[0]);
+    						addSmallCircle(centreX-14.5, centreY, resultsSmall[1]);
+                         	addSmallCircle(centreX-11.5, centreY+18.5, resultsSmall[2]);
+                         	addSmallCircle(centreX+11.5, centreY-18.5, resultsSmall[3]);
+                         	addSmallCircle(centreX+14.5, centreY, resultsSmall[4]);
+                         	addSmallCircle(centreX+11.5, centreY+18.5, resultsSmall[5]);
+						 })
+                         .attr("stroke-width", 3);
+
+// Add text
+
+                       
+}
+
+function addSmallCircle(x, y, textBit){
+	svgContainer.append("circle")
+	.style("opacity", 0)
+			.transition().duration(900).style("opacity", 1)
+    			.attr("cx", (x)+"%")
+                .attr("cy", (y)+"%")
+                .attr("r", "6%")
+                .attr("class", "circle-small");
+   svgContainer.append("foreignObject")
+   .style("opacity", 0)
+			.transition().duration(900).style("opacity", 1)
+			   .attr("x", (x-3)+"%")
+			   .attr("y", (y-3)+"%")
+			   .attr("width", "6%")
+			   .attr("height", 100)
+			   .attr("class", "text-small")
+               .text(textBit.BusinessName);
+}
+
+var svgDefs = svgContainer.append('defs');
+
+var mainGradient = svgDefs.append('linearGradient')
+						  .attr('id', 'mainGradient');
+
+mainGradient.append('stop')
+			.attr('class', 'stop-top')
+			.attr('offset', '0');
+
+mainGradient.append('stop')
+			.attr('class', 'stop-bottom')
+			.attr('offset', '1');
+			
+
+
+
+
+
+/* PERCENTAGE PLACEMENT:
+	10, 20
+	45, 20
+	80, 20
+	10, 70
+	45, 70
+	80, 70
+*/
+
+// perform function on load
+document.addEventListener("DOMContentLoaded", function() {
+	var results = getRandom(csvData, 6);
+	addBubble(results[0], itemPos(10), itemPos(20));
+	addBubble(results[1], itemPos(45), itemPos(20));
+	addBubble(results[2], itemPos(80), itemPos(20));
+	addBubble(results[3], itemPos(10), itemPos(70));
+	addBubble(results[4], itemPos(45), itemPos(70));
+	addBubble(results[5], itemPos(80), itemPos(70));
+});
+
+
+
+</script>
+
+</html>
