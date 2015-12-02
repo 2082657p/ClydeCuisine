@@ -4,6 +4,12 @@ d3.csv("/home/jack/Documents/IS(H)/ClydeCuisineMajor/Templates/data_new.csv", fu
 	csvData = data;	
 });
 
+function togglemap(){
+	document.getElementById("btn").click();
+	}
+	
+window.onload = togglemap;
+
 function printAll(csvData){
 	for(i = 0; i < csvData.length; i++){
 		console.log(csvData[i]);
@@ -133,32 +139,7 @@ mainGradient.append('stop')
 
 
 
-/* PERCENTAGE PLACEMENT:
-	10, 20
-	45, 20
-	80, 20
-	10, 70
-	45, 70
-	80, 70
-*/
 
-// perform function on load
-document.addEventListener("DOMContentLoaded", function() {
-	var results = getRandom(csvData, 6);
-	//for(i = 0; i < results.length
-	addBubble(results[0], itemPos(10), itemPos(20));
-	addBubble(results[1], itemPos(45), itemPos(20));
-	addBubble(results[2], itemPos(80), itemPos(20));
-	addBubble(results[3], itemPos(10), itemPos(70));
-	addBubble(results[4], itemPos(45), itemPos(70));
-	addBubble(results[5], itemPos(80), itemPos(70));
-	//var el   = document.getElementById("svgContainer"); // or other selector like querySelector()
-	//var rect = bg.getBoundingClientRect(); // get the bounding rectangle
-
-//	document.getElementById("bubble 1").onmouseover = function(){
-//		document.getElementById("bubble 1").style.fill = "white";
-//	}
-});
 
 
 

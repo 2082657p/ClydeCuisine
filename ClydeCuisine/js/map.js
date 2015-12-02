@@ -2,11 +2,15 @@
  * Google maps constructor
  * TODO: get Glasgow Lat/Lng
  */
+ 
+ 
+ 
+ 
 $(document).ready(function () {
-    var bi = new google.maps.LatLng(-6.182134, 106.821825);
+    var bi = new google.maps.LatLng(55.864442,-4.256815);
     var mapOptions = {
-        center: new google.maps.LatLng(-2.548926, 118.0148634),
-        zoom: 8,
+        center: new google.maps.LatLng(55.864442, -4.256815),
+        zoom:16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -18,7 +22,7 @@ $(document).ready(function () {
      */
     var marker = new google.maps.Marker({
         map: map,
-        title: 'Bank Indonesia',
+        title: 'McDonalds Sauchiehall',
         animation: google.maps.Animation.BOUNCE
     });
     marker.setPosition(bi);

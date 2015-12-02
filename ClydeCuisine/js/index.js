@@ -4,6 +4,10 @@ d3.csv("/home/jack/Documents/IS(H)/ClydeCuisineMajor/Templates/data_new.csv", fu
 	csvData = data;	
 });
 
+
+
+	
+
 function printAll(csvData){
 	for(i = 0; i < csvData.length; i++){
 		console.log(csvData[i]);
