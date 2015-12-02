@@ -4,10 +4,34 @@
     <meta charset="UTF-8">
     <title>Clyde Cuisine</title>
   <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="js/map.js"></script>	
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://www.d3plus.org/js/d3.js"></script>
+		<script src="http://www.d3plus.org/js/d3plus.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js" type="text/javascript"></script>
+<script javascript>
+		 
+		
+		function get_cookie(cookie_name){
+  			cookie_string = document.cookie;
+  			if (cookie_string.length != 0) {
+    			var cookie_value = cookie_string.match(cookie_name + '=([^;]*)' );
+    			return decodeURIComponent(cookie_value[1]);
+  		}
+  		return "couldn't find it" ;
+		}  
+		
+		
+		function delete_cookie ( cookie_name){
+  			document.cookie = cookie_name + "=; max-age=0; path=/";
+		}
+		</script>
   </head>
   <body>
-  	<nav class="navbar navbar-default navigation">
+ <div class="navigation">
+  	<nav class="navbar navbar-default ">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -40,7 +64,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+</div>
 
 <!-- Register -->
 <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -84,20 +108,79 @@
 
 <div style="padding-left:100px;">
 
-<h2>Restaurant name</h2>
+<div class="name"></div><!-- Restaurant name here -->
 
-<div class="col-md-4" style="width:400px;height:300px;border:1px solid #000;">GoogleMap</div>
+<div class="col-md-4" id="map_canvas" style="width:400px;height:300px;border:1px solid #000;">GoogleMap</div>
 
 <div class="col-md-4">
-<h5>Cuisine: </h5><p>...</p></br>
-<h5>Price Range: </h5><p>....</p></br>
-<h5>Rating :</h5><p>....</p>
+<div class="col-md-4">
+<div class="cuisines"></div><!-- Cuisine types here -->
+<div class="price"></div><!-- Price range here -->
+<div class="rating"></div><!-- Rating here -->
 <p>LINKS ETC HERE</p>
 </div>
 
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script javascript>
+		var csvData;
+		var name;
+		var address;
+		var postCode;
+		var cuisine;
+		var cost;
+		var quality;
+		d3.csv("csv/data_final.csv", function(data) {
+			csvData = data;	
+		});
+		
+		var bar = get_cookie("this_restaurant");
+		console.log(bar);
+		delete_cookie("this_restaurant");
+		
+		
+		function getDetails(csvData){
+			for(i = 0; i < csvData.length; i++){
+				if(csvData[i].Bus_ID == bar){
+					name = csvData[i].BusinessName;
+					address = csvData[i].AddressLine2;
+					postCode = csvData[i].PostCode;
+					cost = csvData[i].Cost;
+					quality = csvData[i].Quality;
+					cuisine = csvData[i].Food_Type_1;
+					if(csvData[i].Food_Type_2 != ''){
+						cuisine += " | " + csvData[i].Food_Type_2;
+					}
+					if(csvData[i].Food_Type_3 != ''){
+						cuisine += " | " + csvData[i].Food_Type_3;
+					}
+				}
+			}
+		}
+		
+		function logAll(){
+			console.log(name);
+			console.log(address);
+			console.log(quality);
+			console.log(postCode);
+		}
+		
+		function setupPage(){
+			d3.select(".name").text(name);
+			d3.select(".cuisines").text(cuisine);
+			d3.select(".price").text("Price range: " + cost);
+			d3.select(".rating").text("Qulaity: " + quality);
+		}
+		
+		
+		document.addEventListener("DOMContentLoaded", function() {
+			getDetails(csvData);
+			//logAll();
+			setupPage();
+	
+		});
+	</script>  
   </body>
 </html>
 
