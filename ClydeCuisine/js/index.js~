@@ -1,4 +1,4 @@
-	
+var csvData;	
 	 function set_cookie ( cookie_name, cookie_value, lifespan_in_days)
 			{
   			document.cookie = cookie_name + "=" + encodeURIComponent(cookie_value)+
@@ -345,6 +345,7 @@ function searchFunc(){
 		}
 	csvData = out;
 	refreshRestOnly();
+	}
 }
 
 

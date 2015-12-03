@@ -1,4 +1,8 @@
-	
+var csvData;
+d3.csv("csv/data_final.csv", function(data) {
+	csvData = data;
+	csvDataMain = data;	
+});	
 	 function set_cookie ( cookie_name, cookie_value, lifespan_in_days)
 			{
   			document.cookie = cookie_name + "=" + encodeURIComponent(cookie_value)+
