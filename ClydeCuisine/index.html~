@@ -203,8 +203,11 @@ d3.csv("csv/data_final.csv", function(data) {
 	csvData = data;
 	csvDataMain = data;	
 });
+
 document.addEventListener("DOMContentLoaded", function() {
+
 	refresh();
+	
 });
 </script>
 
