@@ -4045,11 +4045,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #eee;
 }
 .nav > li.disabled > a {
-  color: #777;
+
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
-  color: #777;
+  
   text-decoration: none;
   cursor: not-allowed;
   background-color: transparent;
@@ -4057,14 +4057,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #eee;
-  border-color: #337ab7;
+
 }
 .nav .nav-divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
-  background-color: #e5e5e5;
 }
 .nav > li > a > img {
   max-width: none;
@@ -4083,21 +4081,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eee #eee #ddd;
+
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555;
+
   cursor: default;
-  background-color: #fff;
+
   border: 1px solid #ddd;
   border-bottom-color: transparent;
 }
-.navigation{
-background-color:#91C2B6;
-font-color:#4A817E;
-}
+
 
 .nav-tabs.nav-justified {
   width: 100%;
@@ -4155,8 +4150,6 @@ font-color:#4A817E;
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #337ab7;
 }
 .nav-stacked > li {
   float: none;
@@ -4552,42 +4545,37 @@ font-color:#4A817E;
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+
 }
 .navbar-default .navbar-brand {
-  color: #777;
+
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
-  background-color: transparent;
+
 }
 .navbar-default .navbar-text {
-  color: #777;
+ 
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333;
-  background-color: transparent;
+
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
-  background-color: #e7e7e7;
+  
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
-  color: #ccc;
-  background-color: transparent;
+
 }
 .navbar-default .navbar-toggle {
-  border-color: #ddd;
+
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
@@ -6808,4 +6796,9 @@ button.close {
     display: none !important;
   }
 }
+.navigation{
+background-color:#91C2B6;
+font-color:#4A817E;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

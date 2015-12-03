@@ -31,7 +31,8 @@ $(document).ready(function () {
      * 
      */
     $("#btn").click(function () {
-        $("#map_canvas").toggle(true);
+        $("#map_canvas").toggle();
+        d3.select("svgContainer").moveToBack();
     });
 
 });
