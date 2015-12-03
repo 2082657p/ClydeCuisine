@@ -43,6 +43,8 @@
 			d3.select(".cuisines").text(cuisine);
 			d3.select(".price").text("Price range: " + cost);
 			d3.select(".rating").text("Quality: " + quality);
+			d3.select(".address").text("\nAddress\n" + address);
+			d3.select(".post-code").text(postCode);
 		}
 		
 		
