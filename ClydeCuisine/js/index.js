@@ -152,6 +152,19 @@ function refresh(){
 	addCuisineBubble(cuisines[1], 80, 71);
 }
 
+function refreshRestOnly(){
+	d3.selectAll(".circle-under").transition().duration(900).style("opacity", 0).remove();
+	d3.selectAll(".circle").transition().duration(900).style("opacity", 0).remove();
+	d3.selectAll(".restaurant-name").transition().duration(900).style("opacity", 0).remove();
+	var results = getRandom(csvData, 6);
+	addBubble(results[0], 20, 29);
+	addBubble(results[1], 50, 29);
+	addBubble(results[2], 80, 29);
+	addBubble(results[3], 20, 71);
+	addBubble(results[4], 50, 71);
+	addBubble(results[5], 80, 71);
+}
+
 function itemPos(item){
 	var out = item+(Math.floor(Math.random() * 10));
 	return out;
@@ -318,6 +331,21 @@ function addSmallCircleFunction(x, y, textBit){
 			 		}
 			 	})
                 .attr("class", "circle-small-cover");
+}
+
+function searchFunc(){
+	var out = [];
+	var search = document.getElementById("search-bar").value;
+	for(i = 0; i<csvDataMain.length; i++){
+		if((csvDataMain[i].BusinessName).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_1).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_2).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_3).indexOf(string) > -1){
+			out[out.length] = csvDataMain[i];
+		}
+	csvData = out;
+	refreshRestOnly();
+	}
 }
 
 

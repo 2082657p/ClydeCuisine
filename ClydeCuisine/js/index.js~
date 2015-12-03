@@ -1,4 +1,25 @@
-
+	
+	 function set_cookie ( cookie_name, cookie_value, lifespan_in_days)
+			{
+  			document.cookie = cookie_name + "=" + encodeURIComponent(cookie_value)+
+      			"; max-age=" + 60 * 60 * 24 * lifespan_in_days +
+      			"; path=/";
+			} 
+		function get_cookie ( cookie_name ){
+  			cookie_string = document.cookie;
+  			if (cookie_string.length != 0) {
+    			var cookie_value = cookie_string.match(cookie_name + '=([^;]*)' );
+    			return decodeURIComponent(cookie_value[1]);
+  		}
+  		return "couldn't find it" ;
+		} 
+			
+		function delete_cookie(cookie_name){
+  			document.cookie = cookie_name + "=; max-age=0; path=/";
+		}
+		
+		
+		
 
 
 
@@ -129,6 +150,19 @@ function refresh(){
 	addBubble(results[3], 20, 71);
 	addCuisineBubble(cuisines[0], 50, 71);
 	addCuisineBubble(cuisines[1], 80, 71);
+}
+
+function refreshRestOnly(){
+	d3.selectAll(".circle-under").transition().duration(900).style("opacity", 0).remove();
+	d3.selectAll(".circle").transition().duration(900).style("opacity", 0).remove();
+	d3.selectAll(".restaurant-name").transition().duration(900).style("opacity", 0).remove();
+	var results = getRandom(csvData, 6);
+	addBubble(results[0], 20, 29);
+	addBubble(results[1], 50, 29);
+	addBubble(results[2], 80, 29);
+	addBubble(results[3], 20, 71);
+	addBubble(results[4], 50, 71);
+	addBubble(results[5], 80, 71);
 }
 
 function itemPos(item){
@@ -299,19 +333,19 @@ function addSmallCircleFunction(x, y, textBit){
                 .attr("class", "circle-small-cover");
 }
 
-var svgDefs = svgContainer.append('defs');
-
-var mainGradient = svgDefs.append('linearGradient')
-						  .attr('id', 'mainGradient');
-
-mainGradient.append('stop')
-			.attr('class', 'stop-top')
-			.attr('offset', '0');
-
-mainGradient.append('stop')
-			.attr('class', 'stop-bottom')
-			.attr('offset', '1');
-			
+function searchFunc(){
+	var out = [];
+	var search = document.getElementById("search-bar").value;
+	for(i = 0; i<csvDataMain.length; i++){
+		if((csvDataMain[i].BusinessName).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_1).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_2).indexOf(string) > -1
+		|| (csvDataMain[i].Food_Type_3).indexOf(string) > -1){
+			out[out.length] = csvDataMain[i];
+		}
+	csvData = out;
+	refreshRestOnly();
+}
 
 
 // perform function on load
